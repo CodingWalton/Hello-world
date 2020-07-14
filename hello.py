@@ -232,5 +232,79 @@ for new_list in new_lists:
 
 
 
+###字典
+dic0 = {'animal':'dog','age':2}     
+dic = {'color':'red','points':dic0}   #字典是一系列键值对，与键关联的值可以是数字、字符串、列表乃至字典。可将任何python对象用作字典的值
+print( dic['color'] ,dic['points'])   #键值之间用：，键值对之间用，  字典十分类似C里的结构体
+#添加键值对
+alien_0 = {'color':'green','points':5}
+print(alien_0)
+alien_0['X_pos'] = 0     #添加键值对的方式
+alien_0['Y_pos'] = 25
+print(alien_0)
+#创建空字典
+alien_1 = {}
+alien_1['color'] = 'red'
+alien_1['points'] = 10
+print(alien_1)
+#修改字典的值
+alien_0['color'] = 'yellow'
+alien_0['points'] = 10
+print("Its color has changed into",alien_0['color']+'. The point is',str(alien_0['points']),'!')
+#删除键值对
+print(alien_0)
+del alien_0['points']
+print(alien_0)
+#用类似对象共同属性组成字典
+favorite_languages = {    #对于较长的字典采用这种输入格式
+	'jen': 'python',
+	'sarah': 'c',
+	'edward': 'ruby',
+	'phil': 'python'
+	}
+print(favorite_languages)
+
+##遍历字典
+user_0 = {
+    'username': 'efermi',
+	'first': 'enrico',
+    'last': 'fermi',
+    }
+for k,v in user_0.items():   #使用item()遍历字典所有键值对
+	print('\nKeys:',k)
+	print('\nValue:',v)
+for k in user_0.keys():      #使用keys()遍历字典中所有键
+	print(k.title())
+for k in user_0:             #遍历字典名时，默认遍历所有的键，与keys()时一样
+	print(k.title())
+for v in user_0.values():    #使用values()遍历字典所有值
+	print(v.title())
+
+
+#按顺序遍历字典所有键
+user_0 = {
+    'username': 'efermi',
+	'first': 'enrico',
+    'last': 'fermi',
+    }
+for k in sorted(user_0.keys()):
+	print(k+'\n')
+
+favorite_languages = {    
+	'jen': 'python',
+	'sarah': 'c',
+	'edward': 'ruby',
+	'phil': 'python'
+	}
+print(favorite_languages)
+for language in favorite_languages.values():
+	print(language)           #存在重复项
+for language in set(favorite_languages.values()):
+	print(language)           #set()可以直接剔除重复元素构成独一无二的元素构成的set集合 
+	                          #set集合类似于列表，但元素组成独一无二
+##嵌套
+
+
+
 
 

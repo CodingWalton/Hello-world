@@ -303,6 +303,135 @@ for language in set(favorite_languages.values()):
 	print(language)           #set()可以直接剔除重复元素构成独一无二的元素构成的set集合 
 	                          #set集合类似于列表，但元素组成独一无二
 ##嵌套
+alien_0 = {'color': 'green', 'points': 5}     
+alien_1 = {'color': 'yellow', 'points': 10}  
+alien_2 = {'color': 'red', 'points': 15} 
+aliens = [alien_0, alien_1, alien_2]    #每个外星人都是一个字典，外星人集成一个列表
+for alien in aliens:      
+	print(alien)
+
+a = [0,'a',{'color': 'yellow', 'points': 10}]  #列表可由任意形式组成
+print(a[2]['color'])
+
+aliens=[]
+for i in range(30):     #产生30个外星人，由30个字典组成列表
+	alien = {'color': 'green', 'points': 5, 'speed': 'slow'}
+	aliens.append(alien)
+for alien in aliens[:5]:   #切片，从一开始到编号5前一个，也即是编号4
+	print(alien)
+
+#也可在字典中储存列表
+favorite_languages = {    
+	'jen': ['python','c'],
+	'sarah': ['c'],
+	'edward': ['ruby','go'],
+	'phil': ['python','haskell']
+	}
+for n,l in favorite_languages.items():
+	print(n.title()+"'s favorite languages are")
+	for ll in l:
+		print('\n',ll.title())
+
+#在字典中储存字典	
+users = {
+	'aeinstein':{
+		'first':'albert',
+		'last':'einstein',
+		'location':'princeton'
+		},
+	'mcurie':{
+		'first':'marie',
+		'last':'curie',
+		'location':'paris'
+		}
+	}
+
+#####用户输入和while循环
+'''
+###input()工作原理
+message = input("Tell me something, and I will repeat it back to you: ") 
+input暂停程序，等待用户输入并将输入值存储到message
+print(message)
+
+prompt = "If you tell us who you are, we can personalize the messages you see." 
+prompt += "\nWhat is your first name? " 
+name = input(prompt) 
+print("\nHello, " + name + "!")
+#使用input赋值会将输入值自动以字符串的形式存储
+
+age = input('How old are you ? ')
+age = int(age)   #将数字的字符串表示转换为数值表示 
+if age >= 18:
+	print('You are an adult !')
+else:
+	print ('So young are you !')
+'''
+#取余(求模)运算符 %
+print(15%10,2%2)
+
+###While循环
+#name = ['0']
+#while name:        #这里非空列表返回True，所以无限循环
+#	name=name
+	
+#使用break退出循环
+age = 18
+while True:
+	age+=5
+	if age > 50:
+		break
+	else:
+		print(age)
+#使用continue跳过本次循环
+nums = []
+num = 0
+while num < 10:
+	num+=1
+	if num % 2 == 0:
+		continue
+	nums.append(num)	
+	print('Odd num get '+str(num))
+print(nums)
+
+##使用while处理列表和字典
+#移动列表元素
+unconfirmed_users = ['alice', 'brian', 'candace']  
+confirmed_users = []
+while unconfirmed_users:    #直到unconfirmed_users为空，while停止运行
+	temp = unconfirmed_users.pop()
+	confirmed_users.append(temp)
+print(confirmed_users)
+#删除包含特定值的所有列表元素
+pets = ['dog', 'cat', 'dog', 'goldfish', 'cat', 'rabbit', 'cat'] 
+num = 0
+for a in pets:
+	if a == 'cat':
+		print(a)
+		num+=1
+print(num)
+while 'cat' in pets:
+	pets.remove('cat')
+print(pets)
+'''
+#通过用户输入填充字典
+information = {} 
+signal = True
+while signal:
+	justice = input ('Do you want to answer the questions?(y/n)')
+	if justice.lower() == 'y':
+		signal = True
+	elif justice.lower() == 'n':
+		signal = False
+		break
+	else:
+		continue
+	name = input ("What's your name?")
+	information[name] = input ('How old are you ? ')
+print(information)
+'''
+	
+	
+
 
 
 

@@ -429,6 +429,188 @@ while signal:
 	information[name] = input ('How old are you ? ')
 print(information)
 '''
+
+#####函数
+def greet_user (username):
+    '''显示简单问候'''
+    print('Hello!',username)
+def favorite_book (book):
+    print('My favorite book is '+book)
+    
+greet_user('Jack')
+favorite_book ('child book')
+#位置实参
+def describe_pet(animal_type, pet_name):
+      """显示宠物的信息"""
+      print("\nI have a " + animal_type + ".")
+      print("My " + animal_type + "'s name is " + pet_name.title() + ".")
+
+describe_pet('hamster', 'harry')  #位置对应
+
+#关键字实参   关键字实参不用对应形参位置
+describe_pet(animal_type = 'hamster',pet_name = 'Jack')
+
+#给形参提供默认值，在调用的时候可以省略输入实参
+def favorite_book (book = 'English book'):
+    print('My favorite book is '+book)
+favorite_book()
+
+#函数返回值
+def get_formatted_name(first_name, last_name):
+    """返回整洁的姓名""" 
+    full_name = first_name + ' ' + last_name      
+    return full_name.title()  
+musician = get_formatted_name('jimi', 'hendrix')  
+print(musician)
+
+def get_formatted_name2(first_name,last_name,middle_name = ''):
+    if middle_name == '':
+        fix_name = first_name + ' ' + last_name
+    else:
+        fix_name = first_name + ' ' + middle_name + ' ' + last_name
+    return fix_name.title()
+name = get_formatted_name2('Jack','chen')
+print(name)
+
+#函数可以返回列表、字典等复杂的数据结构
+def build_person(first_name, last_name):
+    """返回一个字典，其中包含有关一个人的信息"""     
+    person = {'first': first_name, 'last': last_name}     
+    return person  
+musician = build_person('jimi', 'hendrix') 
+print(musician)
+
+#结合while循环与函数做一个交流窗
+'''
+def name_combination (first_name,last_name):
+    fix_name = first_name + ' ' + last_name
+    return fix_name
+while True:
+    print('Tell me your name','\n',"Enter 'q' at any time to quit")
+    f_name = input("What's your first_name? ")
+    if f_name == 'q':
+        break
+    l_name = input("What's your last_name? ")
+    if l_name == 'q':
+        break
+    fix = name_combination (f_name,l_name)
+    print('Hello ! '+fix)
+'''
+#形参为列表
+def greet_users(names):      
+    """向列表中的每位用户都发出简单的问候"""      
+    for name in names:          
+        msg = "Hello, " + name.title() + "!"          
+        print(msg) 
+usernames = ['hannah', 'ty', 'margot']  
+greet_users(usernames)
+
+#切片表示传递列表实参，防止函数永久性改变列表
+# funtion_name(list_name[:])      #使用切片表示，将列表的副本传递给函数，这样不会改变原列表！！！
+
+#传递任意数量的实参
+def make_pizza(*toppings):       #形参前加一个*将toppings创建一个空元组，并将所有实参收集进入这个元组
+    """打印顾客点的所有配料"""    
+    print(toppings) 
+make_pizza('pepperoni') 
+make_pizza('mushrooms', 'green peppers', 'extra cheese')
+#位置实参+任意数量实参
+def make_pizza(size, *toppings):    
+    """概述要制作的比萨"""    
+    print("\nMaking a " + str(size) + "-inch pizza with the following toppings:")    
+    for topping in toppings:        
+        print("- " + topping) 
+make_pizza(16, 'pepperoni') 
+make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+#使用任意数量的关键字实参 （传递任意数量的键值对，或传递字典）
+def build_profile(first, last, **user_info):        #user_info前的**两个星号，使python建立了一个空字典来储存任意数量的键值对
+    """创建一个字典，其中包含我们知道的有关用户的一切"""      
+    profile = {}
+    profile['first_name'] = first      
+    profile['last_name'] = last     
+    for key, value in user_info.items():         
+        profile[key] = value      
+    return profile  
+user_profile = build_profile('albert', 'einstein', location='princeton', field='physics')    #传递任意数量的键值对
+print(user_profile)
+
+##
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 

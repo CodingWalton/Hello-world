@@ -531,46 +531,145 @@ def build_profile(first, last, **user_info):        #user_info前的**两个星号，使
     for key, value in user_info.items():         
         profile[key] = value      
     return profile  
+
 user_profile = build_profile('albert', 'einstein', location='princeton', field='physics')    #传递任意数量的键值对
 print(user_profile)
 
-##
+##在模块中储存函数  （类似于Matlab的.m文件储存函数）
+#导入函数所在的模块    该模块与主程序在同一个目录
+import makepizza    
+makepizza.make_pizza(16, 'pepperoni')  
+makepizza.make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+#导入模块中的函数   
+from makepizza import make_pizza
+make_pizza(16, 'pepperoni')  
+make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+#导入模块中任意数量的函数，用,分隔开
+#    from module_name import function_0, function_1, function_2
+#导入函数时使用as给导入函数指定别名
+from makepizza import make_pizza as mp
+mp(16, 'pepperoni')  
+mp(12, 'mushrooms', 'green peppers', 'extra cheese')
+
+#使用as给模块指定别名
+import makepizza as p          #通用语法：import module_name as mn
+p.make_pizza(16, 'pepperoni')  
+p.make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+
+#使用*将模块内的所有函数全部导入
+from makepizza import *            
+#通用语法:import module_name *
+#这种方法可以直接使用函数名，不需要  module_name.function_name 的方法调用模块内的函数
+#但建议不要使用此方法，若函数名字冲突会出现意料之外的错误
+make_pizza(16, 'pepperoni') 
+make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
 
 
+######类
+
+###方法
+#类中的函数成为方法    
+#所有 方法 的定义均包含self形参 ，该形参必不可少，
+#每个与类相关联的方法调用都自动传递实参self，他是一个指向实例本身的引用，让实例能够访问类中的属性和方法
+##创建一个Dog类
+class Dog():
+    def __init__(self,name,age):   #__init__为双下划线！！！ self必不可少并且是第一个形参，在创建Dog类给一个实例的时候，Dog类会先调用方法__init__将其余参量进行相关赋值操作
+        self.name = name           #以self为前缀的变量都可供类中的所有方法使用，还可以通过类的实例访问这些变量，可以通过实例访问的变量成为 属性 ！！！
+        self.age = age
+    def sit(self):
+        print(self.name.title()+' is now sitting !')
+    def roll_over(self):
+        print(self.name.title()+' rolled over !')
+
+my_dog = Dog('Jack',6)
+print(my_dog.name.title(),'  ',str(my_dog.age))     #通过句点的形式访问属性 name 和 age
+#调用方法(类中的函数)
+my_dog.sit()                  #通过句点的形式调用方法
+my_dog.roll_over()
+#可通过Dog类创建多个实例
+dog1 = Dog('John',3)
+dog2 = Dog('Bob',2)
+dog1.sit()
+dog2.roll_over()
+
+##创建一个Car类
+class Car():
+    def __init__(self,make,model,year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0    #给属性设置默认值，就无需设置提供初始值的形参
+    def get_descriptive_name(self):
+        long_name = str(self.year) + ' ' + self.make + ' ' + self.model    #使用 self. 可以在方法中访问属性的值
+        return long_name.title()
+    def read_odometer(self):
+        print("This car has " + str(self.odometer_reading) + " miles on it.")
+    def update_odometer(self,mileage):      #建立一个方法来修改属性的值
+        if mileage >= self.odometer_reading:
+            self.odometer_reading = mileage
+        else:
+            print('You can not roll back an odometer !')
+    def increment_odometer(self, miles):
+        """将里程表读数增加指定的量"""  
+        if miles >= 0:
+            self.odometer_reading += miles
+        else:
+            print('You can not roll back an odometer !')
+    def fill_gas_tank(self):
+        print('The gas tank has been filled !')
+         
+
+my_new_car = Car('audi', 'a4', 2016)  
+print(my_new_car.get_descriptive_name())  
+my_new_car.read_odometer()
+
+#修改属性的值
+# 1直接修改属性值
+my_new_car.odometer_reading = 23   #直接访问并进行修改
+my_new_car.read_odometer()
+# 2通过方法修改属性的值  在Car类里增添一个方法来修改对应属性的值
+my_new_car.update_odometer(50)
+my_new_car.read_odometer()
+# 3通过方法递增属性的值
+my_used_car = Car('subaru', 'outback', 2013)  
+print(my_used_car.get_descriptive_name())
+my_used_car.update_odometer(23500)
+my_used_car.read_odometer()
+my_used_car.increment_odometer(-50)
+my_used_car.read_odometer()
+
+###继承
+
+#创建子类  创建子类时，父类必须包含在当前文件中，且位于子类前面
+
+##将实例用作类中的属性  
+class Tyre ():
+    def __init__(self,weight=50,height=30):
+        self.weight = weight
+        self.height = height
+    def decribe_tyre (self):
+         print("This car's tyre is " + str(self.weight) + " Kg.")
+         print("This car's tyre is " + str(self.height) + " m.")
 
 
+class ElectricCar (Car):        #定义子类名称后，括号内必须指定父类的名称
+    def __init__(self,make,model,year):         #方法__init__要接受创建Car实例所需的信息，也就是括号内的形参
+        '''先super初始化父类属性，然乎在初始化子类独特属性'''
+        super().__init__(make,model,year)  #super()函数将父类子类相连，让子类实例包含父类的所有属性，父类也叫超类 注意：此处不能加入self形参
+        self.battery_size = 70             #子类独特的属性
+        self.tyre = Tyre()                 #将tyre的实例作为ElectricCar类的属性
+    def describe_battery(self):
+        print("This car has a " + str(self.battery_size) + "-kWh battery.")
+    def fill_gas_tank(self):               #重写父类的方法(函数)，直接将父类的原方法重写就可以 ，将忽略父类的方式写法而直接认可子类方法的新写法
+        print("This car doesn't need a gas tank!")
+my_tesla = ElectricCar('tesla', 'model s', 2016)  
+print(my_tesla.get_descriptive_name())
+my_tesla.describe_battery()
+my_tesla.fill_gas_tank()
+my_tesla.tyre.decribe_tyre()               #调用实例my_tesla的属性中的实例tyre的属性decribe_tyre
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+###导入类
+ 
 
 
 

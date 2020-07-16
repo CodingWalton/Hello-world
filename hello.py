@@ -668,16 +668,18 @@ my_tesla.describe_battery()
 my_tesla.fill_gas_tank()
 my_tesla.tyre.decribe_tyre()               #调用实例my_tesla的属性中的实例tyre的属性decribe_tyre
 
-###导入类
- 
+###从模块中导入类
+from car import CCar
+###从模块中导入任意数量的类
+from car import CCar,CCar1
+###导入整个模块  然后采用句点的形式访问需要的类   导入模块后可以采用句点的形式使用函数和类
+import car
+my_car = car.CCar('volkswagen', 'beetle', 2016)
+###导入所有类    将模块car中的所有包括函数和类全部导入，这样可以不用使用句点的形式表示，可以直接使用名称
+#加*的方式等同于将模块直接复制，所以存在重复定义的可能，若只是导入模块使用类和函数的前提是模块名＋句点，所以不存在重复定义的可能
+''' from car import * '''
 
-
-
-
-
-
-
-
+# !!! 也可以在模块中导入另一个模块 !!! 非常类似于C中的 include
 
 
 
